@@ -19,6 +19,18 @@ service / on new http:Listener(9090) {
  }
 ```
 
+Another way to respond, using `caller->respond`.
+```
+    resource function get data(http:Caller caller, http:Request request) {
+        //validate request here, return if unahthorized.
+        http:Response outResponse = new;
+        // outResponse.setFileAsPayload("/Users/chathurangadisanayaka/Desktop/BAL_TEST/img_dl/img.png", mime:IMAGE_PNG);
+        outResponse.setJsonPayload({test:"test"}, "application/json");
+        outResponse.statusCode = 200;
+        error? err = caller->respond(outResponse);
+    }
+```
+
 
 Image Serve service.
 
